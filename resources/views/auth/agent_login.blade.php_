@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Login Form">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <title>Sign In | {{ config('app.name') }}</title>
+    <link rel="stylesheet" href="{{ asset('public/login/css/agent.css')}}" media="screen">
+    <script> var base_url = "{{  url('') }}"</script>
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    <style class="u-style"> 
+    .u-section-2 {
+  background-image: url("//images01.nicepage.com/c461c07a441a5d220e8feb1a/0c70c1dc45215c91bb7293c6/0b371d95-cef3-309c-0783-7dfc0a6d54d4.jpg");
+  background-position: 50% 50%;
+}
+.u-section-2 .u-sheet-1 {
+  /* min-height: 769px; */
+}
+.u-section-2 .u-text-1 {
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  text-transform: none;
+  font-weight: 700;
+  margin: 60px auto 0;
+}
+.u-section-2 .u-group-1 {
+  width: 569px;
+  min-height: 400px;
+  box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.4);
+  margin: 35px auto 60px;
+}
+.u-section-2 .u-container-layout-1 {
+  padding: 30px 0 0;
+}
+.u-section-2 .u-form-1 {
+  height: 312px;
+  width: 500px;
+  margin: 0 auto;
+}
+.u-section-2 .u-label-1 {
+  font-size: 1rem;
+  letter-spacing: 0px;
+  text-transform: none;
+}
+.u-section-2 .u-input-1 {
+  background-image: none;
+}
+.u-section-2 .u-label-2 {
+  font-size: 1rem;
+  letter-spacing: 0px;
+  text-transform: none;
+}
+.u-section-2 .u-input-2 {
+  background-image: none;
+}
+.u-section-2 .u-label-3 {
+  font-size: 1rem;
+  letter-spacing: 0px;
+  text-transform: none;
+}
+.u-section-2 .u-btn-1 {
+  border-style: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-image: none;
+  width: 100%;
+  padding: 19px 30px 20px;
+}
+.u-section-2 .u-group-2 {
+  min-height: 127px;
+  margin-bottom: 0;
+  margin-top: 35px;
+}
+.u-section-2 .u-container-layout-2 {
+  padding: 0 35px;
+}
+.u-section-2 .u-btn-2 {
+  border-style: none none solid;
+  font-weight: 700;
+  font-size: 1.125rem;
+  align-self: center;
+  margin: 49px 0 0 auto;
+  padding: 0;
+}
+.u-section-2 .u-btn-3 {
+  border-style: none none solid;
+  font-weight: 700;
+  font-size: 1.125rem;
+  align-self: center;
+  margin: -30px auto 0 0;
+  padding: 0;
+}
+@media (max-width: 1199px) {
+  .u-section-2 .u-sheet-1 {
+    min-height: 634px;
+  }
+  .u-section-2 .u-btn-3 {
+    margin-top: -30px;
+  }
+}
+@media (max-width: 991px) {
+  .u-section-2 .u-sheet-1 {
+    min-height: 486px;
+  }
+  .u-section-2 .u-container-layout-2 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+@media (max-width: 767px) {
+  .u-section-2 .u-sheet-1 {
+    min-height: 365px;
+  }
+  .u-section-2 .u-group-1 {
+    width: 540px;
+  }
+  .u-section-2 .u-form-1 {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .u-section-2 .u-container-layout-2 {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+@media (max-width: 575px) {
+  .u-section-2 .u-sheet-1 {
+    min-height: 710px;
+  }
+  .u-section-2 .u-text-1 {
+    font-size: 1.875rem;
+    width: auto;
+  }
+  .u-section-2 .u-group-1 {
+    min-height: 522px;
+    margin-right: initial;
+    margin-left: initial;
+    width: auto;
+  }
+  .u-section-2 .u-form-1 {
+    width: 305px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .u-section-2 .u-container-layout-2 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .u-section-2 .u-btn-2 {
+    margin-top: 24px;
+    margin-right: auto;
+  }
+  .u-section-2 .u-btn-3 {
+    margin-top: 20px;
+    margin-left: auto;
+  }
+}
+.alert-danger
+{
+    color:red;
+}
+</style>
+  
+</head>
+  <body class="u-body u-xl-mode">
+
+    
+    <section class="u-align-center u-clearfix u-image u-section-2" id="sec-babb" data-image-width="1920" data-image-height="1200" style="height: 100%;">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <h2 class="u-custom-font u-font-montserrat u-text u-text-default u-text-palette-2-base u-text-1">Agent Login</h2>
+        <div class="u-align-center u-border-11 u-border-no-left u-border-no-right u-border-no-top u-border-palette-2-base u-container-style u-custom-border u-expanded-width-xs u-grey-15 u-group u-shape-rectangle u-group-1">
+          <div class="u-container-layout u-valign-top u-container-layout-1">
+            <div class="u-form u-login-control u-form-1">
+            @if (session('error'))
+                    <div class="alert alert-danger">
+                    {{ session('error') }}
+                    </div>
+                @endif
+                @if (session('success'))
+                    <div class="alert alert-success">
+                    {{ session('success') }}
+                    </div>
+                @endif
+              <form  action="{{ route('agent.login') }}" method="POST" class="u-clearfix u-form-custom-backend u-form-spacing-10 u-form-vertical u-inner-form" id="login_frm" autocomplete="off" style="padding: 0px;">
+              @csrf  
+              <div class="u-form-group u-form-name u-label-top">
+                  <label for="username" class="u-label u-label-1">Username *</label>
+                  <input type="text" placeholder="Enter your Username" id="username" name="username" autocomplete="off" value="{{ old('username') }}" class="u-border-8 u-border-white u-input u-input-rectangle u-radius-50 u-white u-input-1" required="">
+                </div>
+                <div class="u-form-group u-form-password u-label-top">
+                  <label for="password-a30d" class="u-label u-label-2">Password *</label>
+                  <input type="password" placeholder="Enter your Password" id="password-input" name="password" autocomplete="off" class="u-border-8 u-border-white u-input u-input-rectangle u-radius-50 u-white u-input-2" required="">
+                </div>
+                <div class="u-form-checkbox u-form-group u-label-top">
+                  <input type="checkbox" id="checkbox-a30d" name="remember" value="On">
+                  <label for="checkbox-a30d" class="u-label u-label-3">Remember me</label>
+                </div>
+                <div class="u-align-left u-form-group u-form-submit u-label-top">
+                  <input type="submit" value="submit" class="u-form-control-hidden">
+                  
+                  <input type="submit" value="Login" class="u-active-white u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-white u-palette-2-base u-radius-50 u-text-active-palette-2-base u-text-hover-palette-2-base u-btn-1"  />
+                </div>
+                <input type="hidden" value="" name="recaptchaResponse">
+                <input type="hidden" id="siteId" name="siteId" value="1474135">
+                <input type="hidden" id="pageId" name="pageId" value="1474147">
+              </form>
+            </div>
+             
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    
+  </body>
+</html>

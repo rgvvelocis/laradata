@@ -1,0 +1,20 @@
+[18-Feb-2025 13:42:51 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home4/rojectwo/public_html/config/app.php:18
+Stack trace:
+#0 {main}
+  thrown in /home4/rojectwo/public_html/config/app.php on line 18
+[26-Mar-2025 14:36:28 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home4/datapro1/public_html/config/app.php:18
+Stack trace:
+#0 {main}
+  thrown in /home4/datapro1/public_html/config/app.php on line 18
+[27-Mar-2025 08:25:13 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home4/datapro1/public_html/config/app.php:18
+Stack trace:
+#0 {main}
+  thrown in /home4/datapro1/public_html/config/app.php on line 18
+[27-Mar-2025 08:37:34 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home4/datapro1/public_html/config/app.php:18
+Stack trace:
+#0 {main}
+  thrown in /home4/datapro1/public_html/config/app.php on line 18
+[01-Apr-2025 08:48:02 America/Boise] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home4/datapro1/public_html/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home4/datapro1/public_html/config/services.php on line 18

@@ -1,0 +1,164 @@
+<?php
+ 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\AuthAgentController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminAgentController;
+use App\Http\Controllers\Admin\CustomerController as CustomerController;
+use App\Http\Controllers\Admin\TaskReportController;
+use App\Http\Controllers\Admin\AgreementReportController;
+
+use App\Http\Controllers\Agent\AgentDashboardController;
+use App\Http\Controllers\Agent\AgentUserController;
+
+use App\Http\Controllers\Auth\AuthCustomerController;
+use App\Http\Controllers\Customer\CustomerDashboardController;
+
+Route::get('/clear-all', function() {
+    Artisan::call('optimize:clear');
+	//Artisan::call('vendor:publish --tag=laravel-mail');
+    return 'View cache has been cleared';
+});
+ 
+ Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
+ 
+
+    Route::controller(AuthController::class)->group(function () {
+		Route::get('/', 'home')->name('home');
+        Route::get('/spradmin', 'adminlogin')->name('adminlogin');
+        Route::get('/refresh_captcha', 'refreshCaptcha')->name('refresh_captcha');
+        Route::post('/superlogin', 'superadmin')->name('superadmin.login');
+    });
+//});
+
+
+Route::group(['middleware' => ['XSS']] ,function() {     
+    
+    Route::namespace('Admin')->prefix('superadmin')->name('admin.')->group(function(){
+		Route::group(['middleware' => ['auth:misadmin','prevent-back-history']], function() {
+				
+			Route::resource('roles', '\App\Http\Controllers\Admin\RoleController');
+			Route::resource('permissions', '\App\Http\Controllers\Admin\PermissionController');
+			
+			Route::get('welcome-mail/{id}', [DashboardController::class,'send'])->name('sendEmail');
+			
+			Route::get('dashboard', [DashboardController::class,'dashboard'])->name('dashboard');
+			Route::get('profile', [DashboardController::class,'profile'])->name('profile');
+			Route::get('change-password', [DashboardController::class,'changePassword'])->name('changePassword');
+			Route::post('change-password', [DashboardController::class,'changePasswordPost'])->name('changePasswordPost');
+			
+			Route::post('user-final-submit-date-over', [DashboardController::class,'userFinalSubmitDateOver'])->name('userFinalSubmitDateOver');
+			Route::get('delete-Full-Customer-Detail', [DashboardController::class,'deleteFullCustomerDetail'])->name('deleteFullCustomerDetail');
+
+			Route::get('reset-password/{id}/{pageRoute}', [DashboardController::class,'resetPassword'])->name('resetPassword');
+        	Route::post('reset-password/{id}/{pageRoute}', [DashboardController::class,'resetPasswordPost'])->name('resetPasswordPost');
+			
+			Route::post('admin/update-admin-status', [AdminController::class,'updateAdminStatus'])->name('updateAdminStatus');	
+			Route::post('admin/update-admin-agent-status', [AdminAgentController::class,'updateAdminAgentStatus'])->name('updateAdminAgentStatus');	
+			
+			Route::post('admin/admin-delete', [AdminController::class,'adminDelete'])->name('adminDelete');	
+			Route::resource('admin', '\App\Http\Controllers\Admin\AdminController');
+			Route::resource('supports', '\App\Http\Controllers\Admin\SupportController');  
+			Route::resource('admin-agents', '\App\Http\Controllers\Admin\AdminAgentController'); 
+			//Route::resource('admin-agentreport', '\App\Http\Controllers\Admin\AGGREMENTREPORTController');  
+			
+			//sourav
+			// Route::get('pendinglist',[AgreementReportController::class,'pendinglist'])->name('pendinglist'); 
+			// Route::get('approved',[AgreementReportController::class,'approved'])->name('approved'); 
+			// Route::get('reject',[AgreementReportController::class,'reject'])->name('reject'); 			
+			// Route::post('update-customer-Status',[AgreementReportController::class,'updateCustomerStatus'])->name('updateCustomerStatus'); 
+			// Route::delete('delete-customer/{id}/{type}',[AgreementReportController::class,'deleteCustomer'])->name('deleteCustomer'); 
+			
+			
+			Route::get('complete-list',[TaskReportController::class,'completeList'])->name('completeList'); 
+			Route::get('not-complete-list',[TaskReportController::class,'notCompleteList'])->name('notCompleteList'); 
+			Route::get('report-release',[TaskReportController::class,'reportRelease'])->name('reportRelease'); 
+			Route::post('report-released',[TaskReportController::class,'reportReleased'])->name('reportReleased'); 
+			Route::post('user-resubmission-form',[TaskReportController::class,'userResubmissionForm'])->name('userResubmissionForm'); 
+			Route::get('view-report/{id}/{report_type}', [TaskReportController::class,'viewReport'])->name('viewReport');
+					
+			Route::resource('plan', '\App\Http\Controllers\Admin\PlanController'); 
+			Route::delete('delete-customer/{id}/{type}',[CustomerController::class,'deleteCustomer'])->name('deleteCustomer'); 
+			Route::get('active-users',[CustomerController::class,'activeUsers'])->name('activeUsers'); 
+			Route::post('admin-update-customertatus', [CustomerController::class,'updateCustomertatus'])->name('updateCustomertatus'); 
+			Route::post('admin-assignedData', [CustomerController::class,'assignedData'])->name('assignedData'); 
+			Route::post('admin-updateUserStatus', [CustomerController::class,'updateUserStatus'])->name('updateUserStatus'); 
+			Route::post('admin-getCity', [CustomerController::class,'getAllCity'])->name('getCity'); 
+			Route::resource('admin-customer', '\App\Http\Controllers\Admin\CustomerController'); 
+			Route::resource('datalist', '\App\Http\Controllers\Admin\DatalistController'); 
+			
+			//Route::resource('category', '\App\Http\Controllers\master\CategoryController');
+			
+		 
+		});	
+	});
+	
+	Route::controller(AuthAgentController::class)->group(function () {
+        Route::get('/agent', 'agentlogin')->name('agentlogin');
+        Route::post('agent/login', 'login')->name('agent.login');
+		Route::get('agent-logout', [AuthAgentController::class, 'logout'])->name('agent.logout');		
+    });
+	
+	Route::namespace('Agent')->prefix('agent')->name('agent.')->group(function(){
+		
+		Route::get('dashboard', [AgentDashboardController::class,'dashboard'])->name('dashboard');
+		
+		Route::get('add-user', [AgentUserController::class,'addAgentUser'])->name('addAgentUser');
+		Route::post('save-user', [AgentUserController::class,'saveAgentUser'])->name('saveAgentUser');		
+		Route::get('edit-user/{id}', [AgentUserController::class,'editAgentUser'])->name('editAgentUser');
+		Route::patch('update-user/{id}', [AgentUserController::class,'updateAgentUser'])->name('updateAgentUser');		
+		Route::DELETE('delete-user/{id}', [AgentUserController::class,'deleteAgentUser'])->name('deleteAgentUser');
+		Route::post('admin/update-agent-status', [AgentUserController::class,'updateAgentStatus'])->name('updateAgentStatus');	
+		Route::post('all-city', [AgentUserController::class,'getAllCity'])->name('getAllCity');
+		 
+		
+		Route::get('pendinglist',[AgentUserController::class,'pendinglist'])->name('pendinglist'); 
+		Route::get('approved',[AgentUserController::class,'approved'])->name('approved'); 
+		Route::get('reject',[AgentUserController::class,'reject'])->name('reject'); 
+		
+	});
+	
+	Route::controller(AuthCustomerController::class)->group(function () {
+        Route::get('/', 'customerlogin')->name('customerlogin');
+		Route::get('/login', 'customerlogin')->name('customerlogin');
+        Route::post('/storelogin', 'login')->name('customer.login');
+		Route::get('cust-logout', [AuthCustomerController::class, 'logout'])->name('customer.logout');
+    });
+	
+	Route::namespace('Customer')->name('customer.')->group(function(){
+
+		Route::get('reset-password/{id}/{pageRoute}', [CustomerDashboardController::class,'resetPassword'])->name('resetPassword');
+        Route::post('reset-password/{id}/{pageRoute}', [CustomerDashboardController::class,'resetPasswordPost'])->name('resetPasswordPost');
+			
+		Route::get('dashboard', [CustomerDashboardController::class,'dashboard'])->name('dashboard');
+		Route::get('start-task', [CustomerDashboardController::class,'startWork'])->name('startWork');
+		Route::post('store-task', [CustomerDashboardController::class,'storeWork'])->name('storeWork');
+		Route::post('getgenerate-image', [CustomerDashboardController::class,'getgenerateImage'])->name('getgenerateImage');
+		Route::get('upload-document', [CustomerDashboardController::class,'uploadDocument'])->name('uploadDocument');
+		Route::post('upload-user-document', [CustomerDashboardController::class,'storeCustomerfile'])->name('storeCustomerfile');
+		Route::post('upload-own-photo', [CustomerDashboardController::class,'uploadOwnPhoto'])->name('uploadOwnPhoto');
+		Route::post('upload-own-signature', [CustomerDashboardController::class,'uploadOwnSignature'])->name('uploadOwnSignature');
+		Route::get('view-report', [CustomerDashboardController::class,'viewReport'])->name('viewReport');
+		Route::post('final-submit-work', [CustomerDashboardController::class,'finalSubmitWork'])->name('finalSubmitWork');
+		Route::get('add-review/{page}/{id}', [CustomerDashboardController::class,'addReview'])->name('addReview');
+		Route::post('store-work', [CustomerDashboardController::class,'storeWork'])->name('storeWork');
+		Route::get('edit-review/{page}/{id}', [CustomerDashboardController::class,'editReview'])->name('editReview');
+		Route::any('review-update/{id}', [CustomerDashboardController::class,'updateReview'])->name('updateReview');
+	});
+	
+	
+});

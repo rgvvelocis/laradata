@@ -1,0 +1,142 @@
+@extends('agent.layouts.app')
+@section('title', 'Rejected Customer List')
+ 
+@section('content')
+<div class="container-fluid">
+
+<!-- start page title -->
+	<div class="row">
+		<div class="col-12">
+			<div class="page-title-box d-sm-flex align-items-center justify-content-between">
+				<h4 class="mb-sm-0">Rejected Customer List</h4>
+
+				<div class="page-title-right"> 
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- end page title -->
+ <div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			  
+			<div class="card-body">
+				<div class="live-preview">
+				 
+					<div class="row gy-4">
+					  
+
+					<div class="table-responsive">       
+						<table id="example" class="display table table-bordered dataTable  nowrap" width="100%" cellspacing="0">
+							<thead>
+
+								<tr>
+									<th>ID</th>
+									<th>DATE</th>
+									<th>COMP NAME</th>
+								    <th>NAME</th>  
+									<th>EMAIL</th>
+									<th>Mobile</th>
+									<th>ALT MOBILE</th>
+									<th>ADDRESS</th>
+									<th>CITY</th>
+									<th>STATE</th>
+									<th>PINCODE</th>
+									<th>DOC1</th>
+									<th>DOC2</th>                                            
+									<th>PHOTO</th>
+									<th>AGREEMENT</th>  
+									 
+								</tr>
+							</thead>
+							<tbody>
+							@php $sr = ($data->currentPage() - 1) * $data->perPage(); @endphp
+								@if(!$data->isEmpty())
+									@foreach ($data as $key => $user)
+								
+									 <tr>
+									   <td>{{ $sr + $loop->iteration }} </td>	
+									   <td>{{ date('d-m-Y',strtotime($user->created_at)) }} </td> 									    
+									   <td> {{ $user->parentUser->company_name}}</td>									   
+									   <td>{{ $user->customer_name }} </td>
+									   <td>{{ $user->customer_email }}</td>
+									   <td>{{ $user->customer_mobile  }} </td>
+									   <td>{{ $user->customer_altmobile }} </td>
+									   <td>{{ $user->customer_locality }} </td>
+									   <td>{{ $user->your_city }} </td>
+									   <td>{{ html_entity_decode($user->your_state) }} </td>
+									   <td>{{ $user->customer_pincode }} </td>									   
+									   <td>
+											@if(file_exists(public_path().'/uploads/customer_doc/'.$user->doc1) && !empty($user->doc1))	
+												<a target="blank" href="{{ asset('public/uploads/customer_doc/'.$user->doc1)}}">View</a>
+											@endif
+										</td>
+										<td>
+											@if(file_exists(public_path().'/uploads/customer_doc/'.$user->doc2) && !empty($user->doc2))
+												<a target="blank" href="{{ asset('public/uploads/customer_doc/'.$user->doc2)}}">View</a>
+											@endif
+										</td>
+										<td>
+											@if(file_exists(public_path().'/uploads/customer_pic/thumbnail/'.$user->upload_own_photo) && !empty($user->upload_own_photo))
+												<a data-toggle="lightbox" href="{{ asset('public/uploads/customer_pic/'.$user->upload_own_photo)}}">
+													<img style="width:60px;height:60px;" src="{{ asset('public/uploads/customer_pic/'.$user->upload_own_photo)}}"></a>
+											@endif
+               
+										</td>
+										<td> 
+											@if(!empty($user['agreement_pdf']))
+												<a target="blank" href="{{ asset('public/uploads/agreement/'.$user->agreement_pdf)}}">View</a>
+										    @endif
+										</td>
+									  
+									 </tr>
+									@endforeach
+									@else
+									   <tr>
+										<td colspan="9">No records found!!</td>
+									 </tr>
+									@endif
+									</tbody>
+									<tfoot>
+										<tr>
+											<th>ID</th>
+											<th>DATE</th>
+											<th>COMP NAME</th>
+											<th>NAME</th>  
+											<th>EMAIL</th>
+											<th>Mobile</th>
+											<th>ALT MOBILE</th>
+											<th>ADDRESS</th>
+											<th>CITY</th>
+											<th>STATE</th>
+											<th>PINCODE</th>
+											<th>DOC1</th>
+											<th>DOC2</th>                                            
+											<th>PHOTO</th>
+											<th>AGREEMENT</th>  
+											 
+										</tr>
+									</tfoot>
+						</table>
+					</div>
+					{{ $data->appends(request()->query())->links() }}
+					 
+				</div>
+			</div>
+		</div>
+	</div>
+		
+</div>
+</div>
+ <script>
+     $(document).ready(function () {
+         $('#example').DataTable({
+			 paging: false,
+			 info: false,
+		 });
+     });
+ </script>
+@endsection
+
+ 
