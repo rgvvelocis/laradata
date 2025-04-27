@@ -310,8 +310,7 @@ class CustomerDashboardController extends Controller
 				$formdata['formStatus'] = $correct_form;
 				CustomerFormData::where('id' , $editId)->where('user_id' , $user_id)->update($formdata);
 				DataAssigned::where('data_form_id' , $form_id)->where('user_id' , $user_id)->update(array('correct_form' => $correct_form,'incorrect_form' =>  $incorrect_form, 'form_submit_status' => '1'));
-				//Alert::success('Success', 'Record updated successfully');
-				//return redirect()->route('customer.startWork','page='.$request->page);	
+				 
 				$data['userRes'] = 2;
 				$data['userQR'] = $this->generateQRCode($text);	
 				//pr($this->generateQRCode());			 
